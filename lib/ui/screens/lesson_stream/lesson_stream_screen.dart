@@ -88,7 +88,8 @@ class _LessonStreamScreenState extends State<_LessonStreamScreenWidget> {
                     style: ElevatedButton.styleFrom(
                       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                       padding: EdgeInsets.all(0.0),
-                      backgroundColor: HexColor.fromHex("#FFFFFF").withOpacity(0.1),
+                     primary: HexColor.fromHex("#FFFFFF").withOpacity(0.1),
+                     // backgroundColor: HexColor.fromHex("#FFFFFF").withOpacity(0.1),
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(
@@ -232,7 +233,8 @@ class _LessonStreamScreenState extends State<_LessonStreamScreenWidget> {
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: HexColor.fromHex("#306ECE"))),
                     padding: EdgeInsets.all(0.0),
-                    backgroundColor: mainColor,
+                    primary: mainColor,
+                    //backgroundColor: mainColor,
                   ),
                   onPressed: () {
                     if (state.lessonResponse.prev_lesson != "") {
@@ -311,7 +313,8 @@ class _LessonStreamScreenState extends State<_LessonStreamScreenWidget> {
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: HexColor.fromHex("#306ECE"))),
                           padding: EdgeInsets.all(0.0),
-                          backgroundColor: mainColor,
+                          primary: mainColor,
+                         // backgroundColor: mainColor,
                         ),
                         onPressed: () {
                           if (state.lessonResponse.next_lesson_available) {

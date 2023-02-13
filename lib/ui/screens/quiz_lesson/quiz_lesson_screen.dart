@@ -207,7 +207,8 @@ class QuizLessonWidgetState extends State<QuizLessonWidget> {
                           style: ElevatedButton.styleFrom(
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: mainColor!)),
                             padding: EdgeInsets.all(0.0),
-                            backgroundColor: mainColor,
+                            primary: mainColor,
+                            //backgroundColor: mainColor,
                           ),
                           onPressed: () {
                             if (state.quizResponse.prev_lesson != "") {
@@ -280,7 +281,8 @@ class QuizLessonWidgetState extends State<QuizLessonWidget> {
                   style: ElevatedButton.styleFrom(
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: mainColor!)),
                     padding: EdgeInsets.all(0.0),
-                    backgroundColor: mainColor,
+                    primary: mainColor,
+                    //backgroundColor: mainColor,
                   ),
                   onPressed: () {
                     if (state.quizResponse.next_lesson != "") {

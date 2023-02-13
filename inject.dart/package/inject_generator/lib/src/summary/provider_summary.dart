@@ -17,14 +17,14 @@ enum ProviderKind {
 }
 
 /// Maps between [ProviderKind] enum values and their names.
-final _providerKindNames = new BiMap<ProviderKind, String>()
+final _providerKindNames = new Map<ProviderKind, String>()
   ..[ProviderKind.constructor] = 'constructor'
   ..[ProviderKind.method] = 'method'
   ..[ProviderKind.getter] = 'getter';
 
 /// Converts provider [name] to the corresponding `enum` reference.
-ProviderKind providerKindFromName(String name) {
-  ProviderKind kind = _providerKindNames.inverse[name];
+ProviderKind providerKindFromName(dynamic name) {
+  ProviderKind kind = name;
 
   if (kind == null) {
     throw new ArgumentError.value(name, 'name', 'Invalid provider kind name');
@@ -37,7 +37,7 @@ ProviderKind providerKindFromName(String name) {
 ///
 /// See also [providerKindFromName].
 String provideKindName(ProviderKind kind) {
-  String name = _providerKindNames[kind];
+  String? name = _providerKindNames[kind];
 
   if (name == null) {
     throw new ArgumentError.value(kind, 'kind', 'Unrecognized provider kind');

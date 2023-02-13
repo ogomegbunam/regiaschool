@@ -26,6 +26,8 @@ class InjectorGraphResolver {
     _injectorSummary.providers.forEach(_providers.add);
   }
 
+  Iterable<Future<ModuleSummary>> get modulesToLoad => [];
+
   Future<LibrarySummary> _readFromPath(SymbolPath p,
       {required SymbolPath requestedBy}) async {
     var _cachedSummary = _summaryCache[p];
@@ -33,9 +35,8 @@ class InjectorGraphResolver {
 
     var package = p.package;
     var filePath = path.withoutExtension(p.path) + _librarySummaryExtension;
-    try {
       return _summaryCache[p] = await _reader.read(package, filePath);
-    } on AssetNotFoundException {
+    /*n AssetNotFoundException {
       logUnresolvedDependency(
           injectorSummary: _injectorSummary,
           dependency: p,
@@ -61,7 +62,7 @@ class InjectorGraphResolver {
           'Please file a bug with package:inject.',
           error,
           stackTrace);
-    }
+    }*/
     return new LibrarySummary(p.toAbsoluteUri());
   }
 
@@ -70,20 +71,7 @@ class InjectorGraphResolver {
     // For every module, load the corresponding library summary that should have
     // already been built in the dependency tree. We then lookup the specific
     // module summary from the library summary.
-    var modulesToLoad = _modules.map<Future<ModuleSummary>>((module) async {
-      var moduleSummaries =
-          (await _readFromPath(module, requestedBy: _injectorSummary.clazz))
-              .modules;
-      return moduleSummaries.firstWhere((s) => s.clazz == module, orElse: () {
-        // We're lenient to programming errors. It is possible that an injector
-        // refers to a module for which we failed to produce a summary. So we
-        // emit a warning but keep on trucking.
-        builderContext.rawLogger.severe(
-            'Failed to locate summary for module ${module.toAbsoluteUri()} ',
-            'specified in injector ${_injectorSummary.clazz.symbol}.');
-        return null;
-      });
-    });
+
     List<ModuleSummary> allModules =
         (await Future.wait<ModuleSummary>(modulesToLoad))
             .where((ModuleSummary s) => s != null)
@@ -259,6 +247,8 @@ class DependencyEdge {
   @override
   bool operator ==(Object o) =>
       o is DependencyEdge && o.from == this.from && o.to == this.to;
+
+  hash2(LookupKey from, LookupKey to) {}
 }
 
 /// Represents a cycle inside a dependency graph.

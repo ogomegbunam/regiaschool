@@ -100,3 +100,17 @@ void main() {
     });
   }, skip: 'Currently not working with the extenral build system');
 }
+
+void expect(dynamic value, dynamic i,) {
+}
+
+void setUp(Future<Null> Function() param0) {
+}
+
+void group(dynamic providersInjector, dynamic param1, {required dynamic skip}) {
+}
+
+void test(dynamic s, Future<dynamic> Function() param1) {
+}
+
+

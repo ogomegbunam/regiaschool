@@ -17,14 +17,14 @@ import 'package:inject_generator/src/source/symbol_path.dart';
 /// - [visitModule]: Classes annotated with `@module`.
 abstract class InjectLibraryVisitor {
   /// Call to start visiting [library].
-  void visitLibrary(LibraryElement library) {
+  void visitLibrary(dynamic library) {
     new _LibraryVisitor(this).visitLibraryElement(library);
   }
 
   /// Called when [clazz] is annotated with `@provide`.
   ///
   /// If [clazz] is annotated with `@singleton`, then [singleton] is true.
-  void visitInjectable(ClassElement clazz, bool singleton);
+  void visitInjectable(clazz, bool singleton);
 
   /// Called when [clazz] is annotated with `@injector`.
   ///
@@ -39,19 +39,19 @@ abstract class InjectLibraryVisitor {
   ///
   /// In this example, [modules] will contain references to `FooModule` and
   /// `BarModule` types.
-  void visitInjector(ClassElement clazz, List<SymbolPath> modules);
+  void visitInjector(clazz, List<SymbolPath> modules);
 
   /// Called when [clazz] is annotated with `@module`.
-  void visitModule(ClassElement clazz);
+  void visitModule(clazz);
 }
 
-class _LibraryVisitor extends RecursiveElementVisitor<Null> {
+class _LibraryVisitor extends RecursiveElementVisitor {
   final InjectLibraryVisitor _injectLibraryVisitor;
 
   _LibraryVisitor(this._injectLibraryVisitor);
 
   @override
-  Null visitClassElement(ClassElement element) {
+  Null visitClassElement(dynamic element) {
     var isInjectable = false;
     var isModule = false;
     var isInjector = false;
@@ -112,21 +112,26 @@ class _LibraryVisitor extends RecursiveElementVisitor<Null> {
     }
     return null;
   }
+
+  void visitLibraryElement(library) {}
 }
 
-List<SymbolPath> _extractModules(ClassElement clazz) {
-  ElementAnnotation annotation = getInjectorAnnotation(clazz);
-  List<DartObject> modules =
+class RecursiveElementVisitor {
+}
+
+List<SymbolPath> _extractModules(dynamic clazz) {
+  var annotation = getInjectorAnnotation(clazz);
+  var modules =
       annotation.constantValue.getField('modules').toListValue();
   if (modules == null) {
     return const <SymbolPath>[];
   }
   return modules
-      .map((DartObject obj) => getSymbolPath(obj.toTypeValue().element))
+      .map((dynamic obj) => getSymbolPath(obj.toTypeValue().element))
       .toList();
 }
 
-/// Scans a resolved [ClassElement] looking for metadata-annotated members.
+/// Scans a resolved [//Element] looking for metadata-annotated members.
 abstract class InjectClassVisitor {
   final bool _isForInjector;
 
@@ -139,7 +144,7 @@ abstract class InjectClassVisitor {
   bool get isForInjector => _isForInjector;
 
   /// Call to start visiting [clazz].
-  void visitClass(ClassElement clazz) {
+  void visitClass(dynamic clazz) {
     for (var supertype in clazz.allSupertypes.where((t) => !t.isObject)) {
       new _AnnotatedClassVisitor(this).visitClassElement(supertype.element);
     }
@@ -167,20 +172,23 @@ abstract class InjectClassVisitor {
   ///
   /// [singleton] is `true` when the getter is also annotated with
   /// `@singleton`.
-  void visitProvideGetter(FieldElement method, bool singleton);
+  void visitProvideGetter(dynamic method, bool singleton);
 }
 
-class _AnnotatedClassVisitor extends GeneralizingElementVisitor<Null> {
+class MethodElement {
+}
+
+class _AnnotatedClassVisitor extends GeneralizingElementVisitor {
   final InjectClassVisitor _classVisitor;
 
   _AnnotatedClassVisitor(this._classVisitor);
 
-  bool _isProvider(ExecutableElement element) =>
+  bool _isProvider(dynamic element) =>
       hasProvideAnnotation(element) ||
       (_classVisitor._isForInjector && element.isAbstract);
 
   @override
-  Null visitMethodElement(MethodElement method) {
+  Null visitMethodElement(dynamic method) {
     if (_isProvider(method)) {
       bool singleton = hasSingletonAnnotation(method);
       bool asynchronous = hasAsynchronousAnnotation(method);
@@ -188,14 +196,14 @@ class _AnnotatedClassVisitor extends GeneralizingElementVisitor<Null> {
         method,
         singleton,
         asynchronous,
-        qualifier: hasQualifier(method) ? extractQualifier(method) : null,
+        // qualifier: hasQualifier(method) ? extractQualifier(method) : null,
       );
     }
     return null;
   }
 
   @override
-  Null visitFieldElement(FieldElement field) {
+  Null visitFieldElement(dynamic field) {
     if (_isProvider(field.getter)) {
       bool singleton = hasSingletonAnnotation(field);
       bool asynchronous = hasAsynchronousAnnotation(field);
@@ -209,4 +217,9 @@ class _AnnotatedClassVisitor extends GeneralizingElementVisitor<Null> {
     }
     return null;
   }
+
+  void visitClassElement(element) {}
+}
+
+class GeneralizingElementVisitor {
 }

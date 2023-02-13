@@ -107,7 +107,8 @@ class _AssignmentScreenWidgetState extends State<_AssignmentScreenWidget> {
                       style: ElevatedButton.styleFrom(
                         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                         padding: EdgeInsets.all(0.0),
-                        backgroundColor: HexColor.fromHex("#3D4557"),
+                       primary: HexColor.fromHex("#3D4557"),
+                       // backgroundColor: HexColor.fromHex("#3D4557"),
                       ),
                       onPressed: () {
                         Navigator.of(context).pushNamed(
@@ -205,7 +206,8 @@ class _AssignmentScreenWidgetState extends State<_AssignmentScreenWidget> {
                   ? ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(0.0),
-                        backgroundColor: mainColor,
+                       primary: mainColor,
+                       // backgroundColor: mainColor,
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: HexColor.fromHex("#306ECE"))),
                       ),
@@ -273,7 +275,8 @@ class _AssignmentScreenWidgetState extends State<_AssignmentScreenWidget> {
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: HexColor.fromHex("#306ECE"))),
                         padding: EdgeInsets.all(0.0),
-                        backgroundColor: mainColor,
+                       primary: mainColor
+                       // backgroundColor: mainColor,
                       ),
                       onPressed: () {
                         switch (state.assignmentResponse.next_lesson_type) {

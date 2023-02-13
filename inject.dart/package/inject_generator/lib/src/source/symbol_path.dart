@@ -36,7 +36,7 @@ class SymbolPath implements Comparable<SymbolPath> {
   static const String _dartPackage = 'dart';
 
   /// An alias to `new SymbolPath.fromAbsoluteUri(Uri.parse(...))`.
-  static SymbolPath parseAbsoluteUri(String assetUri, [String symbolName]) {
+  static SymbolPath parseAbsoluteUri(String assetUri, [dynamic symbolName]) {
     return new SymbolPath.fromAbsoluteUri(Uri.parse(assetUri), symbolName);
   }
 
@@ -94,8 +94,8 @@ class SymbolPath implements Comparable<SymbolPath> {
 
   /// Defines a global symbol that is not scoped to a package/path.
   const SymbolPath.global(this.symbol)
-      : package = null,
-        path = null;
+      : package = '',
+        path = '';
 
   /// Create a [SymbolPath] using [assetUri].
   factory SymbolPath.fromAbsoluteUri(Uri? assetUri, [String? symbolName]) {
@@ -193,7 +193,7 @@ class SymbolPath implements Comparable<SymbolPath> {
   }
 
   /// Returns a [Uri] for this path that can be used in a Dart import statement.
-  Uri toDartUri({Uri relativeTo}) {
+  Uri toDartUri({dynamic relativeTo}) {
     if (isGlobal) {
       throw new UnsupportedError('Global keys do not map to Dart source.');
     }
@@ -233,4 +233,6 @@ class SymbolPath implements Comparable<SymbolPath> {
 
   @override
   String toString() => '$SymbolPath {${toAbsoluteUri()}}';
+
+  hash3(String package, String path, String symbol) {}
 }

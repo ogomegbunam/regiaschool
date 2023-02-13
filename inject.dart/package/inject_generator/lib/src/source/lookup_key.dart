@@ -15,7 +15,7 @@ class LookupKey {
   final SymbolPath root;
 
   /// Optional qualifier for the type.
-  final Optional<SymbolPath> qualifier;
+  final Optional qualifier;
 
   LookupKey(this.root, {required SymbolPath? qualifier})
       : this.qualifier = new Optional.fromNullable(qualifier);
@@ -63,4 +63,12 @@ class LookupKey {
 
   @override
   String toString() => '$LookupKey{root: $root, qualifier: $qualifier}';
+
+  hash2(int hashCode, int hashCode2) {}
+}
+
+class Optional {
+  Optional.fromNullable(SymbolPath? qualifier);
+
+  transform(String Function(dynamic symbol) param0) {}
 }

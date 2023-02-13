@@ -19,7 +19,7 @@ import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 /// Runs [fn] within a [Zone] with its own [BuilderContext].
-Future<E> runInContext<E>(BuildStep buildStep, Future<E> fn()) {
+Future<E> runInContext<E>(dynamic buildStep, Future<E> fn()) {
   final completer = new Completer<E>();
 
   Chain.capture(
@@ -54,7 +54,7 @@ BuilderContext get builderContext {
 /// Contains services related to the currently executing [BuildStep].
 class BuilderContext {
   /// The build step currently being processed.
-  final BuildStep buildStep;
+  final dynamic buildStep;
 
   /// A logger that provides source locations.
   ///
@@ -65,44 +65,46 @@ class BuilderContext {
   ///         'is not expected at this location.');
   final BuilderLogger log;
 
-  BuilderContext._(BuildStep buildStep)
+  BuilderContext._(dynamic buildStep)
       : this.buildStep = buildStep,
         log = new BuilderLogger(buildStep.inputId);
 
   /// The logger scoped to the current [buildStep] and therefore scoped to the
   /// currently processed input file.
-  Logger get rawLogger => build.log;
+  dynamic get rawLogger => build.log;
 }
 
 /// A logger that provides human-readable source code locations related to the
 /// log messages.
 class BuilderLogger {
   /// The primary asset being currently processed by the builder.
-  final AssetId _inputId;
+  final dynamic _inputId;
 
   /// Constructor.
   const BuilderLogger(this._inputId);
 
   /// Logs a warning adding [element]'s source information to the message.
-  void warning(Element element, String message) {
+  void warning(dynamic element, String message) {
     builderContext.rawLogger.warning(_constructMessage(element, message));
   }
 
   /// Logs a warning adding [element]'s source information to the message.
-  void info(Element element, String message) {
+  void info(dynamic element, String message) {
     builderContext.rawLogger.info(_constructMessage(element, message));
   }
 
   /// Logs a warning adding [element]'s source information to the message.
-  void severe(Element element, String message) {
+  void severe(dynamic element, String message) {
     builderContext.rawLogger.severe(_constructMessage(element, message));
   }
 
-  String _constructMessage(Element element, String message) {
+  String _constructMessage(dynamic element, String message) {
     // <TRANSITIONAL_API>
-    ElementDeclarationResult elementDeclaration;
+    dynamic elementDeclaration;
+    var ElementKind;
     if (element.kind != ElementKind.DYNAMIC) {
       var parsedLibrary = element.library?.session.getParsedLibraryByElement(element.library);
+      var ResultState;
       if (parsedLibrary.state == ResultState.VALID) {
         elementDeclaration = parsedLibrary.getElementDeclaration(element);
       }
@@ -124,4 +126,9 @@ class BuilderLogger {
 
     return '${_inputId} ${sourceLocation} ${message}${source}';
   }
+}
+
+
+
+class ElementDeclarationResult {
 }

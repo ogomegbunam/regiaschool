@@ -193,7 +193,8 @@ class TextLessonWidgetState extends State<TextLessonWidget> {
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: HexColor.fromHex("#3E4555"))),
                       padding: EdgeInsets.all(0.0),
-                      backgroundColor: HexColor.fromHex("#3E4555"),
+                      primary: HexColor.fromHex("#3E4555"),
+                      // backgroundColor: HexColor.fromHex("#3E4555"),
                     ),
                     onPressed: () {
                       Navigator.of(context).pushNamed(
@@ -527,7 +528,8 @@ class TextLessonWidgetState extends State<TextLessonWidget> {
                           style: ElevatedButton.styleFrom(
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: mainColor!)),
                             padding: EdgeInsets.all(0.0),
-                            backgroundColor: mainColor,
+                           primary: mainColor,
+                            // backgroundColor: mainColor,
                           ),
                           onPressed: () {
                             switch (state.lessonResponse.prev_lesson_type) {
@@ -633,7 +635,8 @@ class TextLessonWidgetState extends State<TextLessonWidget> {
                   style: ElevatedButton.styleFrom(
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(20.0), side: BorderSide(color: mainColor!)),
                     padding: EdgeInsets.all(0.0),
-                    backgroundColor: mainColor,
+                   primary: mainColor,
+                   // backgroundColor: mainColor,
                   ),
                   onPressed: () {
                     if (state.lessonResponse.next_lesson != "") {

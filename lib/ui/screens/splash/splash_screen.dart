@@ -160,7 +160,9 @@ class SplashWidgetState extends State<SplashWidget> {
   _buildLogoBlock(state) {
     if (state is InitialSplashState)
       return Center(
-        child: CircularProgressIndicator(),
+        child: Container(
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/icons/Rslogo.png"))),
+        ),
       );
 
     if (state is CloseSplash) {
@@ -237,7 +239,7 @@ class SplashWidgetState extends State<SplashWidget> {
                         }
                         return SizedBox(
                           width: 83.0,
-                          child: Image.asset('assets/icons/logo.png'),
+                          child: Image.asset('assets/icons/Rslogo.png'),
                         );
                       },
                       width: 83.0,

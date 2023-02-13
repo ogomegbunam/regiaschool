@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:html';
+
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:inject_generator/src/context.dart';
@@ -10,7 +12,7 @@ import 'package:inject_generator/src/source/lookup_key.dart';
 import 'package:inject_generator/src/source/symbol_path.dart';
 
 /// Constructs a serializable path to [element].
-SymbolPath getSymbolPath(Element element) {
+SymbolPath getSymbolPath(dynamic element) {
   if (element is TypeDefiningElement) {
     throw new ArgumentError('Dynamic element type not supported. This is a '
         'package:inject bug. Please report it.');
@@ -21,8 +23,11 @@ SymbolPath getSymbolPath(Element element) {
   );
 }
 
+class TypeDefiningElement {
+}
+
 /// Constructs a [InjectedType] from a [DartType].
-InjectedType getInjectedType(DartType type, {SymbolPath? qualifier}) {
+InjectedType getInjectedType(dynamic type, {SymbolPath? qualifier}) {
   if (type is FunctionType) {
     if (type.parameters.isNotEmpty) {
       builderContext.log.severe(
@@ -47,14 +52,22 @@ InjectedType getInjectedType(DartType type, {SymbolPath? qualifier}) {
       isProvider: false);
 }
 
-LookupKey _getLookupKey(DartType type, {SymbolPath? qualifier}) =>
+class FunctionType {
+  get parameters => null;
+
+  get element => null;
+
+  get returnType => null;
+}
+
+LookupKey _getLookupKey(dynamic type, {SymbolPath? qualifier}) =>
     new LookupKey(getSymbolPath(type.element!), qualifier: qualifier);
 
 bool _hasAnnotation(Element element, SymbolPath annotationSymbol) {
   return _getAnnotation(element, annotationSymbol, orElse: () => null!) != null;
 }
 
-ElementAnnotation _getAnnotation(Element element, SymbolPath annotationSymbol,
+ElementAnnotation _getAnnotation(dynamic element, SymbolPath annotationSymbol,
     {required ElementAnnotation orElse()}) {
   List<ElementAnnotation> resolvedMetadata = element.metadata;
 
@@ -81,12 +94,23 @@ ElementAnnotation _getAnnotation(Element element, SymbolPath annotationSymbol,
       : throw 'Annotation $annotationSymbol not found on element $element';
 }
 
+class ElementAnnotation {
+  get element => null;
+
+  get constantValue => null;
+
+  computeConstantValue() {}
+}
+
 /// Determines if [clazz] is an injectable class.
 ///
 /// Injectability is determined by checking if the class declaration or one of
 /// its constructors is annotated with `@Provide()`.
-bool isInjectableClass(ClassElement clazz) =>
+bool isInjectableClass(dynamic clazz) =>
     hasProvideAnnotation(clazz) || clazz.constructors.any(hasProvideAnnotation);
+
+class ClassElement {
+}
 
 /// Determines if [clazz] is a singleton class.
 ///
@@ -98,7 +122,7 @@ bool isInjectableClass(ClassElement clazz) =>
 ///
 /// It is a warning to have an `@Singleton()` annotation without an `@Provide()`
 /// annotation.
-bool isSingletonClass(ClassElement clazz) {
+bool isSingletonClass(dynamic clazz) {
   bool isSingleton = false;
   if (hasSingletonAnnotation(clazz)) {
     if (hasProvideAnnotation(clazz)) {
@@ -130,7 +154,7 @@ bool isSingletonClass(ClassElement clazz) {
 }
 
 /// Whether [clazz] is annotated with `@Module()`.
-bool isModuleClass(ClassElement clazz) =>
+bool isModuleClass(dynamic clazz) =>
     _hasAnnotation(clazz, SymbolPath.module);
 
 /// Whether [clazz] is annotated with `@Injector()`.
@@ -158,7 +182,7 @@ SymbolPath extractQualifier(Element e) {
 }
 
 /// Whether [e] is annotated with `@Injector()`.
-bool hasInjectorAnnotation(Element e) => _hasAnnotation(e, SymbolPath.injector);
+bool hasInjectorAnnotation(dynamic e) => _hasAnnotation(e, SymbolPath.injector);
 
 /// Returns the element corresponding to the `@Injector()` annotation.
 ///

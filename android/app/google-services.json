@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "787470094102",
-    "firebase_url": "https://masterstudy-app.firebaseio.com",
-    "project_id": "masterstudy-app",
-    "storage_bucket": "masterstudy-app.appspot.com"
+    "project_number": "866069002532",
+    "project_id": "regia-school",
+    "storage_bucket": "regia-school.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:787470094102:android:5349b4d65a5ad432844a37",
+        "mobilesdk_app_id": "1:866069002532:android:44f2a03f3c26586b33dbb1",
         "android_client_info": {
-          "package_name": "com.stylemixthemes.masterstudyapp"
+          "package_name": "com.regia.school"
         }
       },
       "oauth_client": [
         {
-          "client_id": "787470094102-8un268jd46hbsmu4q9eg2uf0ed7humhn.apps.googleusercontent.com",
+          "client_id": "866069002532-vov08ijs13v3n556n1tkms2fonbqfkhq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCxF3ldM-OC2kXwH83ZlFQfpnxAF65Q2Us"
+          "current_key": "AIzaSyAto_JOm8JDLuPRDE6rGWbMkSWZDTNWQ5k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "787470094102-8un268jd46hbsmu4q9eg2uf0ed7humhn.apps.googleusercontent.com",
+              "client_id": "866069002532-vov08ijs13v3n556n1tkms2fonbqfkhq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

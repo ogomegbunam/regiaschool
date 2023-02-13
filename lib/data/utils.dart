@@ -33,8 +33,7 @@ String? appLogoUrl;
 Directory? appDocDir;
 
 ///URL
-// const BASE_URL = "http://hackedneuralnetwork.com";
-// const BASE_URL = "https://tfaseel.com";
-const BASE_URL = "https://masterstudy.stylemixthemes.com/academy";
-// const BASE_URL = "https://mindbodism.com";
+// const BASE_URL = "https://masterstudy.stylemixthemes.com/academy";
+const BASE_URL = "https://regiaschool.com.ng/";
+
 const String apiEndpoint = BASE_URL + "/wp-json/ms_lms/v2/";

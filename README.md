@@ -1,8 +1,9 @@
 # masterstudy_app
 
-MasterStudy App version: 2.0.3
+MasterStudy App version: 2.2.0
 
 ##Updated Info
+- Flutter version 3.3.9
 - Bug Fix
 - Bug Fix Ios Files
 ## Getting Started

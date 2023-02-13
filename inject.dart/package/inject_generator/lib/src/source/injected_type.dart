@@ -57,4 +57,6 @@ class InjectedType {
         'lookupKey: $lookupKey, '
         'isProvider: $isProvider}';
   }
+
+  dynamic hash2(LookupKey lookupKey, bool isProvider) {}
 }

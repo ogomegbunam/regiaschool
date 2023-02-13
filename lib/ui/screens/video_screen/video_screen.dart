@@ -212,7 +212,8 @@ class _VideoScreenState extends State<_VideoScreenWidget> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.all(0.0),
-                              backgroundColor: HexColor.fromHex("#000000"),
+                              primary: HexColor.fromHex("#000000"),
+                              //backgroundColor: HexColor.fromHex("#000000"),
                             ),
                             onPressed: () {
                               setState(() {
